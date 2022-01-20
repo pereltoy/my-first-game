@@ -11,7 +11,7 @@ WINDOW_SIZE = (WINDOW_W, WINDOW_H)
 
 pygame.init()
 screen = pygame.display.set_mode(WINDOW_SIZE)
-pygame.display.set_caption("star wars")
+pygame.display.set_caption("star wars ")
 
 bk_image = pygame.image.load("background.jpg")
 ship_image=pygame.image.load("space ship.png")
