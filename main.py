@@ -28,12 +28,20 @@ ship_x=WINDOW_W/2-25
 ship_y=WINDOW_H-80
 lasers_beam=[]
 
+
 def laserbeam():
+  pygame.draw.line(screen,(255,255,255),(0,1),(1000,1))
+  pygame.draw.line(screen,(255,255,255),(0,2),(1000,2))
+  pygame.draw.line(screen,(255,255,255),(0,3),(1000,3))
+  pygame.draw.line(screen,(255,255,255),(0,4),(1000,4))
+  pygame.draw.line(screen,(255,255,255),(0,5),(1000,5))
+  pygame.draw.line(screen,(255,255,255),(0,6),(1000,6))
   for i in range(len(lasers_beam)):
     lb=lasers_beam[i]
     screen.blit(laser_image,(lb[0],lb[1]))
     lasers_beam[i]=[lb[0],lb[1]-10]
-
+    if lb[1]<1  :
+      lasers_beam.remove(lasers_beam[i])
 
 while play:
   # screen.fill(BK_COLOR)
@@ -46,7 +54,7 @@ while play:
     x_step = -10
   if circle_x <0 :
     x_step = 10
-  
+  laser_x=ship_x+9
   
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
@@ -57,9 +65,10 @@ while play:
       if event.key==pygame.K_RIGHT:
         ship_x+=10
       if event.key==pygame.K_SPACE:
-        lasers_beam.append([ship_x,ship_y+25])
-  
-  laserbeam()
+        lasers_beam.append([laser_x,ship_y])
+        laserbeam()
+        
+  laserbeam() 
   pygame.display.flip()
 
   clock.tick(50)
