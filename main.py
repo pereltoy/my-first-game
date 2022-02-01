@@ -7,12 +7,21 @@ WINDOW_W = 1000
 WINDOW_H = 524
 WINDOW_SIZE = (WINDOW_W, WINDOW_H)
 
+# music defenition
+pygame.mixer.init()
+pygame.mixer.music.load("song.mp3")
+pygame.mixer.music.set_volume(0.0)
+pygame.mixer.music.play()
+pygame.mixer.music.load("gunshot.mp3")
+pygame.mixer.music.set_volume(1.0)
+
+
+pygame.mixer.Channel(1).play(pygame.mixer.Sound('song.mp3'))
 # BK_COLOR = (68,132,88)
 
 pygame.init()
 screen = pygame.display.set_mode(WINDOW_SIZE)
 pygame.display.set_caption("star wars")
-
 bk_image = pygame.image.load("background.jpg")
 ship_image=pygame.image.load("space ship.png")
 laser_image=pygame.image.load("pngaaa.com-25809.png")
@@ -29,19 +38,22 @@ ship_y=WINDOW_H-80
 lasers_beam=[]
 
 
+
 def laserbeam():
-  pygame.draw.line(screen,(255,255,255),(0,1),(1000,1))
-  pygame.draw.line(screen,(255,255,255),(0,2),(1000,2))
-  pygame.draw.line(screen,(255,255,255),(0,3),(1000,3))
-  pygame.draw.line(screen,(255,255,255),(0,4),(1000,4))
-  pygame.draw.line(screen,(255,255,255),(0,5),(1000,5))
-  pygame.draw.line(screen,(255,255,255),(0,6),(1000,6))
+#   pygame.draw.line(screen,(255,255,255),(0,1),(1000,1))
+  # pygame.draw.line(screen,(255,255,255),(0,2),(1000,2))
+  # pygame.draw.line(screen,(255,255,255),(0,3),(1000,3))
+  # pygame.draw.line(screen,(255,255,255),(0,4),(1000,4))
+  # pygame.draw.line(screen,(255,255,255),(0,5),(1000,5))
+  # pygame.draw.line(screen,(255,255,255),(0,6),(1000,6)) 
   for i in range(len(lasers_beam)):
     lb=lasers_beam[i]
     screen.blit(laser_image,(lb[0],lb[1]))
     lasers_beam[i]=[lb[0],lb[1]-10]
-    if lb[1]<1  :
-      lasers_beam.remove(lasers_beam[i])
+   
+      
+
+
 
 while play:
   # screen.fill(BK_COLOR)
@@ -66,9 +78,10 @@ while play:
         ship_x+=10
       if event.key==pygame.K_SPACE:
         lasers_beam.append([laser_x,ship_y])
-        laserbeam()
+        pygame.mixer.Channel(0).play(pygame.mixer.Sound('gunshot.mp3'))
+  laserbeam()
         
-  laserbeam() 
+   
   pygame.display.flip()
 
   clock.tick(50)
